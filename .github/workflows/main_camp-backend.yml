@@ -1,3 +1,6 @@
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+
 name: Build and deploy JAR app to Azure Web App - camp-backend
 
 on:
@@ -8,9 +11,10 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: read #This is required for actions/checkout
+
     steps:
       - uses: actions/checkout@v4
 
@@ -21,33 +25,33 @@ jobs:
           distribution: 'microsoft'
 
       - name: Build with Maven
-        run: mvn clean package "-Dmaven.test.skip=true"
-        working-directory: Backend
+        run: mvn clean install
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: java-app
-          path: Backend/target/*.jar
+          path: '${{ github.workspace }}/target/*.jar'
 
   deploy:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     needs: build
     permissions:
-      id-token: write
-      contents: read
+      id-token: write #This is required for requesting the JWT
+      contents: read #This is required for actions/checkout
+  
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
           name: java-app
-
+      
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_BD0953427E9B46CFB110686223A46C6A }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_4307F394D5FA4DF7AF34F4D1B7383436 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_9FA37ABD2DA34F99824A5E4276151419 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_3F0A169DBDF4470AB5DFD5C5B5A65265 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_7E43049DF0904583A7BA667317575DCB }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_3CCC3AEDA2754790AE42EAC4354B1213 }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
@@ -56,3 +60,4 @@ jobs:
           app-name: 'camp-backend'
           slot-name: 'Production'
           package: '*.jar'
+          
