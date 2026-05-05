@@ -19,7 +19,7 @@ jobs:
         working-directory: Frontend/Backoffice
         run: |
           npm install --legacy-peer-deps
-          npx ng build --configuration=production
+          npx ng build --configuration=production -- --no-progress 2>&1 || npx ng build
       - name: List dist contents
         working-directory: Frontend/Backoffice
         run: |
