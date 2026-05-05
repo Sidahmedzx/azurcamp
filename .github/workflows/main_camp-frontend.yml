@@ -20,6 +20,11 @@ jobs:
         run: |
           npm install
           npx ng build --configuration=production
+      - name: List dist contents
+        working-directory: Frontend/Backoffice
+        run: |
+          ls -la dist/
+          ls -la dist/*/
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
