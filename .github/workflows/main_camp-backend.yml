@@ -1,11 +1,9 @@
-name: Build and deploy JAR app to Azure Web App - camp-backend
-
+name: Build and deploy Node.js app to Azure Web App - camp-frontend
 on:
   push:
     branches:
       - main
   workflow_dispatch:
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -13,26 +11,24 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@v4
-
-      - name: Set up Java version
-        uses: actions/setup-java@v4
+      - name: Set up Node.js version
+        uses: actions/setup-node@v3
         with:
-          java-version: '17'
-          distribution: 'microsoft'
-
-      - name: Build with Maven
-        run: mvn clean package -DskipTests -Dmaven.test.skip=true
-        working-directory: Backend
-
-      - name: List built jars
-        run: ls -la Backend/target/*.jar
-
+          node-version: '22.x'
+      - name: npm install and build
+        working-directory: Frontend/Backoffice
+        run: |
+          npm install --legacy-peer-deps
+          npx ng build --configuration=production
+      - name: List dist contents
+        working-directory: Frontend/Backoffice
+        run: |
+          find dist/ -type f | head -20
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
-          name: java-app
-          path: Backend/target/backend-0.0.1-SNAPSHOT.jar
-
+          name: node-app
+          path: Frontend/Backoffice/dist/backoffice-dashboard/browser
   deploy:
     runs-on: ubuntu-latest
     needs: build
@@ -43,19 +39,16 @@ jobs:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
-          name: java-app
-
+          name: node-app
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_3F0A169DBDF4470AB5DFD5C5B5A65265 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_7E43049DF0904583A7BA667317575DCB }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_3CCC3AEDA2754790AE42EAC4354B1213 }}
-
-      - name: Deploy to Azure Web App
-        id: deploy-to-webapp
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_EF17F6049C8A41A7A357C7DC6FC79E4C }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_51CF5BCB8EE440CC8EEC1E8BE160C9CD }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_131050BC95D048BE99D8A01EAD47B648 }}
+      - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'camp-backend'
+          app-name: 'camp-frontend'
           slot-name: 'Production'
-          package: backend-0.0.1-SNAPSHOT.jar
+          package: .
