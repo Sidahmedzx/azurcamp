@@ -8,7 +8,7 @@ import { Route, Router } from '@angular/router';
 })
 export class AuthService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:8084/api/auth';
+  private apiUrl = 'https://camp-backend-hmgdcvhthwdmf2dw.austriaeast-01.azurewebsites.net';
   constructor(private router:Router){
   }
 
