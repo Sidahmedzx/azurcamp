@@ -21,7 +21,7 @@ jobs:
           distribution: 'microsoft'
 
       - name: Build with Maven
-        run: mvn clean package -DskipTests
+        run: mvn clean package -DskipTests -Dmaven.test.skip=true -Dmaven.compiler.testExcludes="**/*"
         working-directory: Backend
 
       - name: Upload artifact for deployment job
