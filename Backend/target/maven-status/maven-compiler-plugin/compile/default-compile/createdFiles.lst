@@ -1,0 +1,4 @@
+com\camp\backend\controller\AIController.class
+com\camp\backend\dto\CampsiteRevenuResponse.class
+com\camp\backend\service\AIService.class
+com\camp\backend\scheduler\CampsiteScheduler.class
