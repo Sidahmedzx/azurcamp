@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class EventParticipationService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:8084/api/event-participations';
+  private apiUrl = 'https://camp-backend-hmgdcvhthwdmf2dw.austriaeast-01.azurewebsites.net/api/event-participations';
 
   findAll(): Observable<any> {
     return this.http.get(this.apiUrl);
@@ -42,10 +42,10 @@ export class EventParticipationService {
   }
 
   getQrImageUrl(token: string): string {
-    return `http://localhost:8084/api/event-participations/qr-image/${token}`;
+    return `https://camp-backend-hmgdcvhthwdmf2dw.austriaeast-01.azurewebsites.net/api/event-participations/qr-image/${token}`;
   }
 
   getTicketUrl(token: string): string {
-    return `http://localhost:8084/api/event-participations/ticket/${token}`;
+    return `https://camp-backend-hmgdcvhthwdmf2dw.austriaeast-01.azurewebsites.net/api/event-participations/ticket/${token}`;
   }
 }

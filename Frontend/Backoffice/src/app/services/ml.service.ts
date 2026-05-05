@@ -79,7 +79,7 @@ export class MlService {
    */
   getRecommendations(userId: number): Observable<Recommendation[]> {
     return this.http.get<Recommendation[]>(
-      `http://localhost:8084/api/recommendations/user/${userId}/posts`
+      `https://camp-backend-hmgdcvhthwdmf2dw.austriaeast-01.azurewebsites.net/api/recommendations/user/${userId}/posts`
     ).pipe(
       catchError((error: HttpErrorResponse) => {
         console.warn('⚠️ Recommendations unavailable:', error);
@@ -93,7 +93,7 @@ export class MlService {
    */
   getTrendingPosts(): Observable<any[]> {
     return this.http.get<any[]>(
-      `http://localhost:8084/api/recommendations/trending`
+      `https://camp-backend-hmgdcvhthwdmf2dw.austriaeast-01.azurewebsites.net/api/recommendations/trending`
     ).pipe(
       catchError(() => of([]))
     );

@@ -43,7 +43,7 @@ export interface ApiResponse<T> {
 @Injectable({ providedIn: 'root' })
 export class ForumService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:8084/api/forum';
+  private apiUrl = 'https://camp-backend-hmgdcvhthwdmf2dw.austriaeast-01.azurewebsites.net/api/forum';
 
   // ==================== POSTS ====================
 
@@ -148,21 +148,21 @@ export class ForumService {
   // ==================== RECOMMANDATIONS ====================
 
   getRecommendedPosts(userId: number): Observable<ForumPost[]> {
-    return this.http.get<ApiResponse<ForumPost[]>>(`http://localhost:8084/api/recommendations/user/${userId}/posts`).pipe(
+    return this.http.get<ApiResponse<ForumPost[]>>(`https://camp-backend-hmgdcvhthwdmf2dw.austriaeast-01.azurewebsites.net/api/recommendations/user/${userId}/posts`).pipe(
       map(res => res.data || []),
       catchError(() => of([]))
     );
   }
 
   getTrendingPosts(): Observable<ForumPost[]> {
-    return this.http.get<ApiResponse<ForumPost[]>>(`http://localhost:8084/api/recommendations/trending`).pipe(
+    return this.http.get<ApiResponse<ForumPost[]>>(`https://camp-backend-hmgdcvhthwdmf2dw.austriaeast-01.azurewebsites.net/api/recommendations/trending`).pipe(
       map(res => res.data || []),
       catchError(() => of([]))
     );
   }
 
   getTopContributors(limit: number = 5): Observable<any[]> {
-    return this.http.get<ApiResponse<any[]>>(`http://localhost:8084/api/users/top-contributors?limit=${limit}`).pipe(
+    return this.http.get<ApiResponse<any[]>>(`https://camp-backend-hmgdcvhthwdmf2dw.austriaeast-01.azurewebsites.net/api/users/top-contributors?limit=${limit}`).pipe(
       map(res => res.data || []),
       catchError(() => of([]))
     );

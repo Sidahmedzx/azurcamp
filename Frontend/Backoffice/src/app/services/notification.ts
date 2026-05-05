@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class NotificationService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:8084/api/notifications';
+  private apiUrl = 'https://camp-backend-hmgdcvhthwdmf2dw.austriaeast-01.azurewebsites.net/api/notifications';
 
   findAll(page: number = 0, size: number = 10): Observable<any> {
     return this.http.get(`${this.apiUrl}?page=${page}&size=${size}`);

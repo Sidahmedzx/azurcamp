@@ -9,7 +9,7 @@ import SockJS from 'sockjs-client';
 })
 export class ChatService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:8084/api/chat';
+  private apiUrl = 'https://camp-backend-hmgdcvhthwdmf2dw.austriaeast-01.azurewebsites.net/api/chat';
 
   private stompClient: Client | null = null;
   private messageSubject = new Subject<any>();

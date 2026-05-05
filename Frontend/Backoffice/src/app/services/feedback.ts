@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class FeedbackService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:8084/api/feedbacks';
+  private apiUrl = 'https://camp-backend-hmgdcvhthwdmf2dw.austriaeast-01.azurewebsites.net/api/feedbacks';
 
   findAll(): Observable<any> {
     return this.http.get(this.apiUrl);

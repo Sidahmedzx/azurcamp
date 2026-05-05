@@ -30,7 +30,7 @@ describe('UserService', () => {
 
   it('should fetch all users', () => {
     service.findAll().subscribe();
-    const req = httpMock.expectOne('http://localhost:8084/api/users');
+    const req = httpMock.expectOne('https://camp-backend-hmgdcvhthwdmf2dw.austriaeast-01.azurewebsites.net/api/users');
     expect(req.request.method).toBe('GET');
     req.flush([]);
   });

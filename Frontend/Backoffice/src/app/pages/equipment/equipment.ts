@@ -361,7 +361,7 @@ onFileSelected(event: any) {
     const formData = new FormData();
     formData.append('file', file);
 
-    this.http.post<any>('http://localhost:8084/api/upload/image', formData)
+    this.http.post<any>('https://camp-backend-hmgdcvhthwdmf2dw.austriaeast-01.azurewebsites.net/api/upload/image', formData)
       .subscribe({
         next: (response) => {
           const imageUrl = response.data;
@@ -385,7 +385,7 @@ callAIPrice(file: File) {
   formData.append('demand', '70');
   formData.append('season', 'winter');
 
-  this.http.post<any>('http://localhost:8084/api/ai/predict', formData)
+  this.http.post<any>('https://camp-backend-hmgdcvhthwdmf2dw.austriaeast-01.azurewebsites.net/api/ai/predict', formData)
     .subscribe({
       next: (res) => {
         this.aiPrice.set(res.recommended_price);
