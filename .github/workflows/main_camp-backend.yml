@@ -61,4 +61,3 @@ jobs:
           app-name: 'camp-backend'
           slot-name: 'Production'
           package: '*.jar'
-          
